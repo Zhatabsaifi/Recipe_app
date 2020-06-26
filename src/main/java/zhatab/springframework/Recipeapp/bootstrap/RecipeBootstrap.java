@@ -142,6 +142,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
 
+        guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/how_to_make_perfect_hard_boiled_eggs/");
+        guacRecipe.setServings(4);
+        guacRecipe.setSource("Simply Recipe");
+
         //add to return list
         recipes.add(guacRecipe);
 
