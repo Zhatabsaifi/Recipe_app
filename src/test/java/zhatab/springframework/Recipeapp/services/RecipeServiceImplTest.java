@@ -1,9 +1,12 @@
 package zhatab.springframework.Recipeapp.services;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import zhatab.springframework.Recipeapp.converters.RecipeCommandToRecipe;
+import zhatab.springframework.Recipeapp.converters.RecipeToRecipeCommand;
 import zhatab.springframework.Recipeapp.domain.Recipe;
 import zhatab.springframework.Recipeapp.repositories.RecipeRepository;
 
@@ -11,8 +14,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
@@ -22,13 +23,20 @@ class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
-    @BeforeEach
-    void setUp() {
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @Before
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
-    @Test
+    @org.junit.Test
     public void getRecipeByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
@@ -38,23 +46,24 @@ class RecipeServiceImplTest {
 
         Recipe recipeReturned = recipeService.findById(1L);
 
-        assertNotNull(recipeReturned," NULL recipe Return ");
+        Assert.assertNotNull("Null recipe returned", recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
 
     @Test
-    void getRecipes() {
-        Recipe rec = new Recipe();
-        HashSet recData = new HashSet();
-        recData.add(rec);
+    public void getRecipesTest() throws Exception {
 
-        when(recipeService.getRecipes()).thenReturn(recData);
+        Recipe recipe = new Recipe();
+        HashSet receipesData = new HashSet();
+        receipesData.add(recipe);
+
+        when(recipeService.getRecipes()).thenReturn(receipesData);
 
         Set<Recipe> recipes = recipeService.getRecipes();
-        assertEquals(recipes.size(),1);      // findAll run here
 
-        verify(recipeRepository,times(1)).findAll();    // findAll method is only invoked  at 1 time until this line and  no more or not less run
-
+        Assert.assertEquals(recipes.size(), 1);
+        verify(recipeRepository, times(1)).findAll();
+        verify(recipeRepository, never()).findById(anyLong());
     }
 }
