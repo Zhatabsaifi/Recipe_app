@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 class UnitOfMeasureRepositryIntegrationTest {
 
     @Autowired
-    UnitOfMeasureRepositry unitOfMeasureRepositry;
+    UnitOfMeasureRepository unitOfMeasureRepositry;
 
     @BeforeEach
     void setUp() {

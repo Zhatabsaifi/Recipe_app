@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import zhatab.springframework.Recipeapp.domain.*;
 import zhatab.springframework.Recipeapp.repositories.CategoryRepository;
 import zhatab.springframework.Recipeapp.repositories.RecipeRepository;
-import zhatab.springframework.Recipeapp.repositories.UnitOfMeasureRepositry;
+import zhatab.springframework.Recipeapp.repositories.UnitOfMeasureRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,10 +18,10 @@ import java.util.Optional;
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private final CategoryRepository categoryRepository;
-    private final UnitOfMeasureRepositry unitOfMeasureRepository;
+    private final UnitOfMeasureRepository unitOfMeasureRepository;
     private final RecipeRepository recipeRepository;
 
-    public RecipeBootstrap(CategoryRepository categoryRepository, UnitOfMeasureRepositry unitOfMeasureRepository,
+    public RecipeBootstrap(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository,
                            RecipeRepository recipeRepository) {
         this.categoryRepository = categoryRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
