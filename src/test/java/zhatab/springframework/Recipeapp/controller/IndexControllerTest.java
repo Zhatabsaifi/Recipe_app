@@ -48,7 +48,7 @@ class IndexControllerTest {
 
         when(recipeService.getRecipes()).thenReturn(recipeSet);
 
-        ArgumentCaptor<Set<Recipe>> arugumentCaptor = ArgumentCaptor.forClass(Set.class);
+        ArgumentCaptor< Set<Recipe> > arugumentCaptor = ArgumentCaptor.forClass(Set.class);
 
         //when
         String val = indexController.getIndexPage(model);
